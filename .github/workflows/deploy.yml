@@ -1,0 +1,23 @@
+name: Terraform init and plan
+on:
+    push:
+        branches:
+            - main
+jobs:
+    terraform:
+        runs-on: ubuntu-latest
+        steps:
+            - name: get code
+              uses: actions/checkout@v3
+
+            - name: Login to Azure
+              uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+                    
+            - name: Initialize Terraform
+              run: terraform init
+      
+            - name: Apply Terraform configuration
+              run: terraform apply -auto-approve
+      
