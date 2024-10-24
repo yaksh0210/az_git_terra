@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Azure Cli install
+        uses: pietrobolcato/install-azure-cli-action@main
   
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
