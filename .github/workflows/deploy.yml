@@ -1,39 +1,28 @@
-name: "Terraform-Apply-Infra-Release"
+name: Terraform init and plan
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 jobs:
-  terraform:
-    name: "Terraform"
-    runs-on: ubuntu-latest
+    terraform:
+        runs-on: ubuntu-latest
+        permissions:
+                id-token: write
+        steps:
+            - name: get code
+              uses: actions/checkout@v3
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Azure Cli install
-        uses: pietrobolcato/install-azure-cli-action@main
-  
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
-      - name: Terraform Init
-        id: init
-        run: terraform init
-
-      - name: Terraform Plan
-        id: plan
-        if: github.event_name == 'push'
-        run: terraform plan 
-        continue-on-error: true
-
-      - name: Terraform Plan Status
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
-
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
+            - name: Login to Azure
+              uses: azure/login@v1
+            
+              with:
+                    client-id: ${{ secrets.AZURE_CLIENTID }}
+                    tenant-id: ${{ secrets.AZURE_TENANTID }}
+                    subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }} 
+            
+            - name: Initialize Terraform
+              run: terraform init
+      
+            - name: Apply Terraform configuration
+              run: terraform apply -auto-approve
+      
