@@ -16,6 +16,7 @@ jobs:
                     client-id: ${{ secrets.AZURE_CLIENTID }}
                     tenant-id: ${{ secrets.AZURE_TENANTID }}
                     subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }} 
+                    enable-AzPSSession: true
             - name: Initialize Terraform
               run: terraform init
       
