@@ -1,10 +1,8 @@
 name: "Terraform-Apply-Infra-Release"
-
 on:
   push:
     branches:
       - main
-
 jobs:
   terraform:
     name: "Terraform"
@@ -26,7 +24,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'push'
-        run: terraform plan -no-color
+        run: terraform plan 
         continue-on-error: true
 
       - name: Terraform Plan Status
