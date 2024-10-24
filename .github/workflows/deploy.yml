@@ -6,6 +6,8 @@ on:
 jobs:
     terraform:
         runs-on: ubuntu-latest
+        permissions:
+            id-token: write      
         steps:
             - name: get code
               uses: actions/checkout@v3
@@ -17,7 +19,7 @@ jobs:
                     client-id: ${{ secrets.AZURE_CLIENTID }}
                     tenant-id: ${{ secrets.AZURE_TENANTID }}
                     subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }} 
-                    
+
             - name: Initialize Terraform
               run: terraform init
       
