@@ -25,12 +25,3 @@ jobs:
         azcliversion: latest
         inlineScript: |
           az account show
-
-    - name: Get code
-      uses: actions/checkout@v3
-
-    - name: Terraform check
-      uses: actions/terraform@v2
-
-    - name: Terraform initialize
-      run: terraform init
