@@ -10,16 +10,12 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Login to Azure
-      run: |
-        az login
-
-    # - name: Login to Azure
-    #   uses: azure/login@v2
-    #   with:
-    #     client-id: ${{ secrets.AZURE_CLIENTID }}
-    #     tenant-id: ${{ secrets.AZURE_TENANTID }}
-    #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }}
-    #     client-secret-id: ${{secrets.AZURE_CLIENT_SECRET}}
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENTID }}
+        tenant-id: ${{ secrets.AZURE_TENANTID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }}
+        client-secret-id: ${{secrets.AZURE_CLIENT_SECRET}}
 
     - name: Initialize Terraform
       run: terraform init
