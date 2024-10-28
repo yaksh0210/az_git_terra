@@ -20,8 +20,11 @@ jobs:
       run: terraform plan
 
   terraform_apply:
+
     needs: terraform_plan
+
     runs-on: ubuntu-latest
+
     permissions:
       id-token: write
     steps:
@@ -40,13 +43,19 @@ jobs:
       run: terraform apply -auto-approve
 
   terraform_destroy:
+
     needs: terraform_apply
     runs-on: ubuntu-latest
+
     permissions:
       id-token: write
+
     steps:
     - name: Get code
       uses: actions/checkout@v3
 
+    - name: First initialize it
+      run: terraform init
+
     - name: destroying resource
-      run: terraform destroy
+      run: terraform distroy
