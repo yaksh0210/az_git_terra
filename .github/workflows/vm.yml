@@ -85,7 +85,7 @@ jobs:
 
     - name: Login to Azure
       run: |
-        echo "${{ secrets.AZURE_CLIENT_SECRET }}" | az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p --tenant "${{ secrets.AZURE_TENANTID }}"
+        az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant "${{ secrets.AZURE_TENANTID }}"
 
     - name: Initialize Terraform
       run: terraform init
@@ -105,7 +105,7 @@ jobs:
 
     - name: Login to Azure
       run: |
-        echo "${{ secrets.AZURE_CLIENT_SECRET }}" | az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p --tenant "${{ secrets.AZURE_TENANTID }}"
+        az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant "${{ secrets.AZURE_TENANTID }}"
 
     - name: Terraform initialize
       run: terraform init
