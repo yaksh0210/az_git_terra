@@ -1,0 +1,20 @@
+name: Scanning the code
+on:
+  push:
+    branches:
+    - scanner
+jobs:
+  terrascan:
+    runs-on: ubuntu-latest
+    name: Terraformscan-action
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Run Terraform scan
+      id: terrascan
+      uses: tenable/terrascan-action@scanner
+      with:
+        iac_type: 'terraform'
+        iac_version: 'v14'
+        policy_type: 'azure'
