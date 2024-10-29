@@ -6,7 +6,7 @@ on:
 jobs:
   terrascan:
     runs-on: ubuntu-latest
-    name: Terraformscan-action
+    name: Terraform Code Scanning
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
