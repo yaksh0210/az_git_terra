@@ -1,10 +1,70 @@
+# name: Terraform Workflow
+# on: push
+# jobs:
+#   code-syntax:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: get code
+#       uses: actions/checkout@v3
+
+#     - name: Initialize Terraform
+#       run: terraform init
+
+#     - name: Syntax validation
+#       run: terraform validate
+
+
+#   terraform-plan:
+#     needs: code-syntax
+#     runs-on: ubuntu-latest
+#     permissions:
+#       id-token: write
+
+#     steps:
+#     - name: get code
+#       uses: actions/checkout@v3
+
+#     - name: Login in Azure
+#       run: |
+#         az login
+
+#     - name: Initialize Terraform
+#       run: terraform init
+
+#     - name: Planing Phase
+#       run: terraform plan
+
+#   terraform-apply:
+
+#     needs: terraform-plan
+
+#     runs-on: ubuntu-latest
+
+#     permissions:
+#       id-token: write
+
+#     steps:
+
+#     - name: Get code
+#       uses: actions/checkout@v3
+
+#     - name: Azure Login
+#       run: |
+#         az login
+
+#     - name: Terraform initialize
+#       run: terraform init
+
+#     - name: Applying for terraform
+#       run: terraform apply -auto-approve
+
 name: Terraform Workflow
 on: push
 jobs:
   code-syntax:
     runs-on: ubuntu-latest
     steps:
-    - name: get code
+    - name: Get code
       uses: actions/checkout@v3
 
     - name: Initialize Terraform
@@ -13,7 +73,6 @@ jobs:
     - name: Syntax validation
       run: terraform validate
 
-
   terraform-plan:
     needs: code-syntax
     runs-on: ubuntu-latest
@@ -21,43 +80,32 @@ jobs:
       id-token: write
 
     steps:
-    - name: get code
+    - name: Get code
       uses: actions/checkout@v3
 
-    - name: Login in Azure
+    - name: Login to Azure
       run: |
-        az login
-
-    # - name: Login to Azure
-    #   uses: azure/login@v2
-    #   with:
-    #     client-id: ${{ secrets.AZURE_CLIENTID }}
-    #     tenant-id: ${{ secrets.AZURE_TENANTID }}
-    #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }}
+        echo "${{ secrets.AZURE_CLIENT_SECRET }}" | az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p --tenant "${{ secrets.AZURE_TENANTID }}"
 
     - name: Initialize Terraform
       run: terraform init
 
-    - name: Planing Phase
+    - name: Planning Phase
       run: terraform plan
 
   terraform-apply:
-
     needs: terraform-plan
-
     runs-on: ubuntu-latest
-
     permissions:
       id-token: write
 
     steps:
-
     - name: Get code
       uses: actions/checkout@v3
 
-    - name: Azure Login
+    - name: Login to Azure
       run: |
-        az login
+        echo "${{ secrets.AZURE_CLIENT_SECRET }}" | az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p --tenant "${{ secrets.AZURE_TENANTID }}"
 
     - name: Terraform initialize
       run: terraform init
