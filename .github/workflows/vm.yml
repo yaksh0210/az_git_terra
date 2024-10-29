@@ -1,9 +1,9 @@
-name: Terraform init and plan
+name: Terraform Workflow
 on: workflow_dispatch
 
 jobs:
 
-  terraform:
+  terraform-plan:
 
     runs-on: ubuntu-latest
     permissions:
@@ -30,6 +30,26 @@ jobs:
     - name: Planing Phase
       run: terraform plan
 
-    # - name: Apply Terraform configuration
-    #   run: terraform apply -auto-approve
+  terraform-apply:
 
+    needs: terraform-plan
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+
+    steps:
+
+    - name: Get code
+      uses: actions/checkout@v3
+
+    - name: Azure Login
+      run: |
+        az login
+
+    - name: Terraform initialize
+      run: terraform init
+
+    - name: Applying for terraform
+      run: terraform apply -auto-approve

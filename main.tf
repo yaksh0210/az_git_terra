@@ -53,8 +53,6 @@ resource "azurerm_network_interface" "newnetinter" {
 
 }
 
-
-
 resource "azurerm_windows_virtual_machine" "myvm" {
   name                  = "myvm"
   location              = "southeastasia"
