@@ -13,7 +13,7 @@ jobs:
 
     - name: Run Terraform scan
       id: terrascan
-      uses: tenable/terrascan-action@scanner
+      uses: tenable/terrascan-action@main
       with:
         iac_type: 'terraform'
         iac_version: 'v14'
