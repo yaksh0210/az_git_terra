@@ -1,63 +1,3 @@
-# name: Terraform Workflow
-# on: push
-# jobs:
-#   code-syntax:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: get code
-#       uses: actions/checkout@v3
-
-#     - name: Initialize Terraform
-#       run: terraform init
-
-#     - name: Syntax validation
-#       run: terraform validate
-
-
-#   terraform-plan:
-#     needs: code-syntax
-#     runs-on: ubuntu-latest
-#     permissions:
-#       id-token: write
-
-#     steps:
-#     - name: get code
-#       uses: actions/checkout@v3
-
-#     - name: Login in Azure
-#       run: |
-#         az login
-
-#     - name: Initialize Terraform
-#       run: terraform init
-
-#     - name: Planing Phase
-#       run: terraform plan
-
-#   terraform-apply:
-
-#     needs: terraform-plan
-
-#     runs-on: ubuntu-latest
-
-#     permissions:
-#       id-token: write
-
-#     steps:
-
-#     - name: Get code
-#       uses: actions/checkout@v3
-
-#     - name: Azure Login
-#       run: |
-#         az login
-
-#     - name: Terraform initialize
-#       run: terraform init
-
-#     - name: Applying for terraform
-#       run: terraform apply -auto-approve
-
 name: Terraform Workflow
 on: push
 jobs:
@@ -90,7 +30,7 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
-    - name: Planning Phase
+    - name: Planing Phase
       run: terraform plan
 
   terraform-apply:
