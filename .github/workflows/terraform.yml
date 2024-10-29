@@ -26,11 +26,11 @@ jobs:
     - name: Get code
       uses: actions/checkout@v3
 
-    - name: Login to Azure
+    - name: Azure Login
       run: |
         az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant "${{ secrets.AZURE_TENANTID }}"
 
-    - name: Initialize Terraform
+    - name: Initlize Terraform
       run: terraform init
 
     - name: Planing Phase
