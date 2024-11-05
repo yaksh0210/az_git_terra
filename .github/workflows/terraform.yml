@@ -16,6 +16,9 @@ jobs:
     - name: Syntax validation
       run: terraform validate
 
+    - name: Checking Format
+      run: terraform fmt
+
   terraform-plan:
     needs: code-syntax
     runs-on: ubuntu-latest
