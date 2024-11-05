@@ -36,22 +36,22 @@ jobs:
     - name: Planing Phase
       run: terraform plan
 
-  terraform-apply:
-    needs: terraform-plan
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
+  # terraform-apply:
+  #   needs: terraform-plan
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     id-token: write
 
-    steps:
-    - name: Get code
-      uses: actions/checkout@v3
+  #   steps:
+  #   - name: Get code
+  #     uses: actions/checkout@v3
 
-    - name: Login to Azure
-      run: |
-        az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant "${{ secrets.AZURE_TENANTID }}"
+  #   - name: Login to Azure
+  #     run: |
+  #       az login --service-principal -u "${{ secrets.AZURE_CLIENTID }}" -p "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant "${{ secrets.AZURE_TENANTID }}"
 
-    - name: Terraform initialize
-      run: terraform init
+  #   - name: Terraform initialize
+  #     run: terraform init
 
-    - name: Applying for terraform
-      run: terraform apply -auto-approve
+  #   - name: Applying for terraform
+  #     run: terraform apply -auto-approve
